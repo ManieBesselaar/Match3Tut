@@ -1,0 +1,54 @@
+{
+    "name": "Match3Inputs",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "bf67ddeb-bf5c-4e54-8885-bc8dddc0eee6",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "a58fe0ac-a34c-4a19-a67c-82730d53e5e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "4f452ccd-3bec-472e-93d2-4cc35c635473",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "136ff581-625f-40f9-90c2-211ee6730c47",
+                    "path": "<Pointer>/{Point}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "247c4123-de5c-40e2-a3d0-92eb524e5708",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
