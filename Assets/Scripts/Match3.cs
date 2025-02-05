@@ -9,7 +9,6 @@ using UnityEngine.UIElements;
 
 namespace Match3
 {
-
     public class Match3 : MonoBehaviour
     {
         [SerializeField] int _width = 8;
@@ -20,6 +19,9 @@ namespace Match3
         [SerializeField] Gem _gemPrefab;
         [SerializeField] Gemtype[] _gemTypes;
         [SerializeField] Ease _ease;
+        [SerializeField]
+       GameObject[] _explosionFX;
+        [SerializeField] CamShaker _camShaker;
         InputReader _inputReader;
         Quaternion rotation;
         GridSystem2D<GridObject<Gem>> _grid;
@@ -31,10 +33,11 @@ namespace Match3
         }
 
         [SerializeField] RotationType _rotationType;
-
+        AudioManager _audioManager;
         private void Awake()
         {
             _inputReader = GetComponent<InputReader>();
+            _audioManager = GetComponent<AudioManager>();
         }
         private void Start()
         {
@@ -192,8 +195,14 @@ namespace Match3
                              
                _grid.SetValue(match.x, match.y, null);
                 gem.transform.DOPunchScale(Vector3.one * 1.5f, .5f,1,.05f);
+                GameObject explosion = Instantiate(_explosionFX[Random.Range(0, _explosionFX.Length)], gem.transform.position,Quaternion.Euler(90,0,0));
+                _audioManager.PlayPop();
+                _camShaker.ShakeCam();
                 yield return new WaitForSeconds(.5f);
+                //Spawn an explosion effect
                 gem.DestroyGem();
+                Destroy(explosion, .1f);
+               
             }
             yield return new WaitForSeconds(.5f);
            // yield return StartCoroutine(ReplaceEmptySpots());
@@ -275,7 +284,7 @@ namespace Match3
                 .DOMove(_grid.GetWorldPositonCenter(gridPosB.x, gridPosB.y), .5f).SetEase(_ease);
             gridObjectB.GetValue().transform
                 .DOMove(_grid.GetWorldPositonCenter(gridPosA.x, gridPosA.y), .5f).SetEase(_ease);
-
+            _audioManager.PlayWoosh();
             _grid.SetValue(gridPosA.x, gridPosA.y, gridObjectB);
             _grid.SetValue(gridPosB.x, gridPosB.y, gridObjectA);
             yield return new WaitForSeconds(.5f);
@@ -286,11 +295,13 @@ namespace Match3
         private void SelectGem(Vector2Int gridpos)
         {
            _selectedGem = gridpos;
+            _audioManager.PlayClick();
         }
 
         private void DeselectGem()
         {
             _selectedGem = Vector2Int.one * -1;
+            _audioManager.PlayDeselect();
         }
 
         void InitializeGrid()
