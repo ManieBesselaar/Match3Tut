@@ -229,7 +229,15 @@ namespace Match3
             }
             public override Vector3 Forward => -Vector3.up;
         }
+        public int GetWidth()
+        {
+            return _width;
+        }
 
+        public int GetHeight() 
+        {
+            return _height;
+        }
     }
 }
 

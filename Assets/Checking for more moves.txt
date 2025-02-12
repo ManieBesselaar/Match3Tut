@@ -1,0 +1,13 @@
+Only check part that changed? Could be risky since player may have chosen 1 possible match over another.
+
+Start from position 0,0.
+In coroutine.
+ Check for possible matches when moving 1 up, down, left, right and then seeing if moving 1 more in that direction is another tile of same type, if so , check one more in same direction. If so then there are still possible matches and you can exit the loop knowing the player can still continue.
+This works because the minimum match is three in a row and all the match shapes are designed to contain at least 1 row of 3 in either a vertical or horizontal orientation.
+
+Since starting from the bottom left certain optimizations can be made. 
+1. At the top and right hand edge, there is no need to check to the right or top.
+same applies for left bottom. May be possible to only start checking from 1,1 instead of 0,0. Need to think this through.
+2.
+ 
+If no matches are found after checking the whole board, then do a shuffle.

@@ -21,11 +21,13 @@ namespace Match3
         [SerializeField] Ease _ease;
         [SerializeField]
        GameObject[] _explosionFX;
+       
         [SerializeField] CamShaker _camShaker;
         InputReader _inputReader;
         Quaternion rotation;
         GridSystem2D<GridObject<Gem>> _grid;
        Vector2Int _selectedGem = Vector2Int.one *-1;
+        MatchChecker _checker;
         enum RotationType
         {
             Horizontal,
@@ -38,12 +40,14 @@ namespace Match3
         {
             _inputReader = GetComponent<InputReader>();
             _audioManager = GetComponent<AudioManager>();
+            _checker = GetComponent<MatchChecker>();
         }
         private void Start()
         {
           
            _inputReader.Fire += OnSelectGem;
             InitializeGrid();
+            _checker.Init(_grid);
         }
 
         private void OnSelectGem()
@@ -88,12 +92,20 @@ namespace Match3
             
            yield return StartCoroutine(SwapGems(gridPosA, gridPosB));
 
-            List<Vector2Int> matches = FindMatches();
-            yield return StartCoroutine(ExplodeGems(matches));
 
-            yield return StartCoroutine(MakeGemsFall());
-            yield return StartCoroutine(ReplaceEmptySpots());
-            DeselectGem();
+            List<Vector2Int> matches = _checker.ProcessMatchList();
+
+            while (matches.Count > 0)
+            {
+                yield return StartCoroutine(ExplodeGems(matches));
+
+                yield return StartCoroutine(MakeGemsFall());
+                yield return StartCoroutine(ReplaceEmptySpots());
+
+                matches = _checker.ProcessMatchList();
+            }
+           
+                DeselectGem();
             //Swap
 
         }
@@ -195,6 +207,7 @@ namespace Match3
                              
                _grid.SetValue(match.x, match.y, null);
                 gem.transform.DOPunchScale(Vector3.one * 1.5f, .5f,1,.05f);
+                //TODO: pool my vfx objects
                 GameObject explosion = Instantiate(_explosionFX[Random.Range(0, _explosionFX.Length)], gem.transform.position,Quaternion.Euler(90,0,0));
                 _audioManager.PlayPop();
                 _camShaker.ShakeCam();

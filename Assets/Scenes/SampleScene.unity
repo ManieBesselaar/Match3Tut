@@ -667,6 +667,7 @@ GameObject:
   - component: {fileID: 1922608220}
   - component: {fileID: 1922608223}
   - component: {fileID: 1922608222}
+  - component: {fileID: 1922608224}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -715,6 +716,7 @@ MonoBehaviour:
   - {fileID: 300418595711091768, guid: 3acd11bab485f554886fae0d2fe20998, type: 3}
   - {fileID: 8360543360962292472, guid: 3dcf515ab1aaa91468b037c152d671a7, type: 3}
   - {fileID: 6831022978808081148, guid: 5265deacdb6a002418e86f9d3e48fafb, type: 3}
+  _camShaker: {fileID: 567244784}
   _rotationType: 1
 --- !u!4 &1922608219
 Transform:
@@ -944,6 +946,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1922608224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922608217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bc07ab96bf55a4a9f24bd23d5d23cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _patterns:
+  - {fileID: 11400000, guid: 46d7c205d6c9b1849a804653967ee453, type: 2}
+  - {fileID: 11400000, guid: e3e8f8a632509a645b5da879562b11be, type: 2}
+  - {fileID: 11400000, guid: dff43ab2e063bd645bf6b8533df5e131, type: 2}
+  - {fileID: 11400000, guid: 96b2c2c1933ca9949bf5e26745cfd2ec, type: 2}
+  - {fileID: 11400000, guid: 33956f936bff66248b9d3e306b3c6eb9, type: 2}
+  - {fileID: 11400000, guid: cd6275078f6814a4bb5a7f8132f6b3bb, type: 2}
+  - {fileID: 11400000, guid: 210a53689183a694f908751bc92b4ab1, type: 2}
+  - {fileID: 11400000, guid: f505890367372204ab700a3a03865106, type: 2}
+  - {fileID: 11400000, guid: 1cd3f64749b2dec41bccdad1e27befda, type: 2}
+  - {fileID: 11400000, guid: ae1b5dd1e7e335a4b8fa31d217d090cd, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
